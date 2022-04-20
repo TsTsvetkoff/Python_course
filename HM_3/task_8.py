@@ -1,5 +1,5 @@
 """
-8. Write a Python program which prints the next 5 days starting from today.
+8. Write a Python program which prints the next 5 days starting from today. (inclusive)
 """
 import datetime
 

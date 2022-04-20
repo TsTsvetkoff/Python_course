@@ -6,5 +6,6 @@ content(text) to a text file.
 import requests
 
 get = requests.get("https://dir.bg/")
+# get.encoding = get.apparent_encoding
 response = open("task_5_output.txt", 'w')
-response.write(str(get))
+response.write(str(get.content))

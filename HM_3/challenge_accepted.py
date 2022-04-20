@@ -7,6 +7,7 @@ mixed_list = ['Коч', 'Python', 'Бира', 'Metamorphosis', 'Скара', "Л
 
 en_counter = 0
 bg_counter = 0
+
 for i in mixed_list:
     if ord(i[0]) < 128:
         en_counter += 1
