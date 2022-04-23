@@ -7,6 +7,7 @@ This app will have two classes, Song and List, and a list can contain many songs
 """
 import datetime
 import random
+import gc
 from random import randrange
 
 
@@ -45,7 +46,7 @@ class Song():
         return all_songs
 
 
-my_new_song = Song("Nqkvo_zaglavie", "Kondio", 777, "Bla_Bla_Bla")
+my_new_song = Song("Song1", "Kondio", 777, "Bla_Bla_Bla")
 # print(my_new_song.title)
 # print(my_new_song.artist)
 # print(my_new_song.friendly_duration())
@@ -54,12 +55,12 @@ my_new_song.add_song()
 # my_new_song.play_a_song()
 # print(all_songs)
 
-nov_hit = Song("Djigi_Djigi", "Painer_planetka", 888, "Top_top_maaane")
+nov_hit = Song("Song2", "Painer_planetka", 888, "Top_top_maaane")
 nov_hit.add_song()
 # nov_hit.play_a_song()
 #print(all_songs)
 
-zemi_taz_tupalka = Song("Zaicheto_bqlo", "Bate_Encho", 999, "Zai4enceto bqqqlo cql deeen si igralooo")
+zemi_taz_tupalka = Song("Song3", "Bate_Encho", 999, "Zai4enceto bqqqlo cql deeen si igralooo")
 zemi_taz_tupalka.add_song()
 print(all_songs)
 
@@ -68,35 +69,30 @@ class List():
     @staticmethod
     def play_all():
         #need to get all instance of a Song class :)
-        import gc
+        print("Playing all favorite songs: ")
         for obj in gc.get_objects():
             if isinstance(obj, Song):
                 Song.play_a_song(obj)
 
-
     @staticmethod
     def shuffle():
-        index = 0
-        for value in all_songs:
-          print(index, value)
-          index += 1
+        shuffledList = random.sample(all_songs, k=len(all_songs))
+        print("\nPrinting all shuffled songs: ")
+        for emp in shuffledList:
+            print(emp)
 
-        random_choise = random.randrange(index)
-        print(random_choise)
-
-
-
-
-
+    @staticmethod
+    def duration():
+        all_duration = []
+        for obj in gc.get_objects():
+            if isinstance(obj, Song):
+                all_duration.append(Song.get_duration(obj))
+        return print(f"The total duration of your favorite songs is : {sum(all_duration)}")
 
 
 my_new_list = List()
-#my_new_list.play_all()
-
-
+my_new_list.play_all()
 my_new_list.shuffle()
-
-
-
+my_new_list.duration()
 
 
