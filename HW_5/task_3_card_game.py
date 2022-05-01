@@ -1,5 +1,16 @@
-card_points = ['7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+card_points = ['7', '8', '9', '1', 'J', 'Q', 'K', 'A']
 card_signs = ['Пика', 'Купа', 'Каро', 'Спатия']
+
+number_to_points = {
+        '7': 7,
+        '8': 8,
+        '9': 9,
+        '1': 10,
+        'J': 11,
+        'Q': 12,
+        'K': 13,
+        'A': 14,
+}
 
 
 all_given_cards = []
@@ -59,7 +70,7 @@ def other_players_play():
         player_2.remove(str_match[0])
     else:
         player_2_first_card = player_2.pop()
-        current_hand["Player2 card"].append(player_2_first_card)
+        #current_hand["Player2 card"].append(player_2_first_card)
 
     str_match_3 = [s for s in player_3 if s.__contains__(updated_list)]
     if len(str_match_3)>0:
@@ -67,7 +78,7 @@ def other_players_play():
         player_3.remove(str_match_3[0])
     else:
         player_3_first_card = player_3.pop()
-        current_hand["Player3 card"].append(player_3_first_card)
+       # current_hand["Player3 card"].append(player_3_first_card)
 
     str_match_4 = [s for s in player_4 if s.__contains__(updated_list)]
 
@@ -76,28 +87,34 @@ def other_players_play():
         player_4.remove(str_match_4[0])
     else:
         player_4_first_card = player_4.pop()
-        current_hand["Player4 card"].append(player_4_first_card)
+        #current_hand["Player4 card"].append(player_4_first_card)
 
     print(current_hand)
 
-
-def winer_is():
     all_trown_cards = []
     for v in current_hand.values():
-        all_trown_cards.append(v)
-    print(all_trown_cards)
+        all_trown_cards.extend(v)
 
-    str_match_all = [s for s in all_trown_cards if s.__contains__(updated_list)]
-    print(str_match_all)
+    idz_of_thrownd_cards = []
+    for z in all_trown_cards:
+        idz_of_thrownd_cards.extend(z[0])
 
+    new_dict = {k: number_to_points[k] for k in idz_of_thrownd_cards if k in number_to_points}
+    maxed = (max(new_dict, key=new_dict.get))
 
-    #
+    def matchingKeys(dictionary, searchString):
+        return print([key for key, val in dictionary.items() if any(searchString in s for s in val)])
+
+    print(f"With card '{maxed} {updated_list}' The Winner is : ")
+    matchingKeys(current_hand, maxed)
+
     # print("------------------------------------------------------------------")
     # print(f"Player 1 cards now are {player_1}")
     # print(f"Player 2 cards now are {player_2}")
     # print(f"Player 3 cards now are {player_3}")
     # print(f"Player 4 cards now are {player_4}")
     #
+
 
 give_cards()
 players_cards()
