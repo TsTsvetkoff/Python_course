@@ -19,6 +19,7 @@ class User:
         assert check_password == User.get_password(self),  "Wrong pass"
         print(f"Welcome {User.get_name(self)} to our lovely site !")
 
+
 class Item:
     item_1 = {'name_item1': "Item1", 'quantity_item1': 1, 'price_item1': 10}
     item_2 = {'name_item2': "Item2", 'quantity_item2': 2, 'price_item2': 20}
