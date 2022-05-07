@@ -1,0 +1,12 @@
+If you use the Notepad program to code program files on Windows, be careful to pick the type All Files when it
+comes time to save your file, and give the file a .py suffix explicitly. Otherwise,
+Notepad will save your file with a .txt extension (e.g., as script1.py.txt), making it difficult to run in some launching schemes.
+Worse, Windows hides file extensions by default, so unless you have changed your view options you may not even notice that you’ve coded a text file and not a Python file. The file’s icon may give this away—if it doesn’t have a snake on it, you may
+have trouble. Uncolored code in IDLE and files that open to edit instead of run
+when clicked are other symptoms of this problem.
+Microsoft Word similarly adds a .doc extension by default; much worse, it adds
+formatting characters that are not legal Python syntax. As a rule of thumb, always
+pick All Files when saving under Windows, or use a more programmer-friendly
+text editor such as IDLE. IDLE does not even add a .py suffix automatically—a
+feature programmers tend to like, but users do not.
+Python
