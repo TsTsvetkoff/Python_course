@@ -1,6 +1,7 @@
-from http import cookiejar  # Python 2: import cookielib as cookiejar
-import requests
+import requests as re
+from flask import Flask
 from bs4 import BeautifulSoup
+from http import cookiejar
 
 
 class BlockAll(cookiejar.CookiePolicy):
@@ -9,20 +10,28 @@ class BlockAll(cookiejar.CookiePolicy):
     rfc2965 = hide_cookie2 = False
 
 
-s = requests.Session()
-s.cookies.set_policy(BlockAll())
-bnb = s.get("https://www.bnb.bg/Statistics/StInterbankForexMarket/index.htm")
-assert not s.cookies
+app = Flask(__name__)
 
-result = ''
 
-html_soup = BeautifulSoup(bnb.content, 'html.parser')
+@app.route("/")
+def valutno_info():
+    s = re.Session()
+    s.cookies.set_policy(BlockAll())
+    bnb = s.get("https://www.bnb.bg/Statistics/StInterbankForexMarket/index.htm")
+    assert not s.cookies
+    result = ''
 
-table = html_soup.find_all('div',{"class": "table_box table_scroll"})
-# table = html_soup.find_all('table')
+    html_soup = BeautifulSoup(bnb.content, 'html.parser')
 
-for row in table[0].children:
-    print(row)
-    result += str(row)
+    table = html_soup.find_all('div', {"class": "table_box table_scroll"})
+    # table = html_soup.find_all('table')
 
-print(row)
+    for row in table[0].children:
+        print(row)
+        result += str(row)
+
+    return result
+
+
+if __name__ == "__main__":
+    app.run(port=80)
