@@ -32,9 +32,11 @@ def context_process():
 
 @app.route('/game-started', methods=["GET", "POST"])
 def game_started():
+    global first_name, last_name, level
     if request.method == "POST":
         begin = request.form.get("fname_1").lower()
         if begin == 'east':
+            level +=1
             return redirect('/blood-moor')
         else:
             return redirect('/game-started')
@@ -44,27 +46,53 @@ def game_started():
 @app.route('/blood-moor', methods=["GET", "POST"])
 def blood_moor():
     global first_name, last_name, level
-    level += 1
-    if request.method == "POST":
-        begin1 = request.form.get("fname_2")
-        print(begin1)
-        if begin1 == '1':
-            return redirect('/dungeon-den')
-        if begin1 == "2":
-            return redirect('/cold-plants')
-        else:
-            return redirect('/blood-moor')
-    return render_template('blood_moor.html')
+    if level <=2:
+        level = level
+        if request.method == "POST":
+            begin1 = request.form.get("fname_2")
+            if begin1 == '1':
+                return redirect('/dungeon-den')
+            if begin1 == "2":
+                return redirect('/cold-plants')
+            else:
+                return redirect('/blood-moor')
+        return render_template('blood_moor.html')
+    else:
+        if request.method == "POST":
+            begin1 = request.form.get("fname_2")
+            if begin1 == '1':
+                return redirect('/dungeon-den')
+            if begin1 == "2":
+                return redirect('/cold-plants')
+        return render_template('blood_more_empty.html')
 
 
 @app.route('/dungeon-den', methods=["GET", "POST"])
 def den():
-    return render_template('dungeon_den.html')
+    global first_name, last_name, level
+    if level <= 3:
+        level +=1
+        return render_template('dungeon_den.html')
+    else:
+        return render_template('dungeon_den_empty.html')
 
 
 @app.route('/cold-plants', methods=["GET", "POST"])
 def cold_plants():
-    return render_template('cold_plants.html')
+    global first_name, last_name, level
+    if level <= 2:
+        level +=1
+        return render_template('cold_plants.html')
+    else:
+        return render_template('cold_plants_empty.html')
+
+
+@app.route('/boss-fight', methods=["GET", "POST"])
+def boss_fight():
+    if level == 4:
+        return render_template('win.html')
+    else:
+        return render_template('dead.html')
 
 
 if __name__ == '__main__':
