@@ -7,6 +7,9 @@ level_up_counter = 1
 first_name = None
 last_name = None
 level = 1
+been_in_blood = 0
+been_in_den = 0
+been_in_cold_plants = 0
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -45,8 +48,9 @@ def game_started():
 
 @app.route('/blood-moor', methods=["GET", "POST"])
 def blood_moor():
-    global first_name, last_name, level
-    if level <=2:
+    global first_name, last_name, level, been_in_blood
+    if been_in_blood == 0 and level <= 2 :
+        been_in_blood += 1
         level = level
         if request.method == "POST":
             begin1 = request.form.get("fname_2")
@@ -69,8 +73,9 @@ def blood_moor():
 
 @app.route('/dungeon-den', methods=["GET", "POST"])
 def den():
-    global first_name, last_name, level
-    if level <= 3:
+    global first_name, last_name, level, been_in_den
+    if been_in_den == 0:
+        been_in_den += 1
         level +=1
         return render_template('dungeon_den.html')
     else:
@@ -79,8 +84,9 @@ def den():
 
 @app.route('/cold-plants', methods=["GET", "POST"])
 def cold_plants():
-    global first_name, last_name, level
-    if level <= 2:
+    global first_name, last_name, level, been_in_cold_plants
+    if been_in_cold_plants == 0:
+        been_in_cold_plants +=1
         level +=1
         return render_template('cold_plants.html')
     else:
